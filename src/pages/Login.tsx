@@ -1,8 +1,8 @@
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { app } from '../firebase';
 
-function Signup() {
+function Login() {
     const auth = getAuth(app);
 
 
@@ -12,10 +12,17 @@ function Signup() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Add your form submission logic here
-        await createUserWithEmailAndPassword(auth, email, password)
+        try {
+            await signInWithEmailAndPassword(auth, email, password)
+            alert("Success!");  
+        
+
+        }
+        catch (err) {
+            alert("User not found")
+        }
         // setLoading(false);
-        alert("Success!");
+
     };
 
     const containerStyle = {
@@ -79,4 +86,4 @@ function Signup() {
     );
 }
 
-export default Signup;
+export default Login;
